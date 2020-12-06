@@ -20,8 +20,14 @@ public class UserServiceImpl implements UserService
   }
 
   @Override
-  public UserEntity getUser()
+  public UserEntity getUser(String name)
   {
-    return userJpa.findByNickName();
+    return userJpa.findByNickName(name);
+  }
+
+  @Override
+  public void saveUser(UserEntity user)
+  {
+    userJpa.save(user);
   }
 }

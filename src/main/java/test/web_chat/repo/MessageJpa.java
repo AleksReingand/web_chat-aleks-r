@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface MessageJpa extends JpaRepository<MessageEntity, Integer>
 {
-  List<MessageEntity> findAllByNickName();
+  List<MessageEntity> findAll();
 }

@@ -5,7 +5,7 @@ let newMessages = new Map();
 
 function connectToChat(userName) {
     console.log("connecting to chat...")
-    let socket = new SockJS(url + '/chat');
+    const socket = new SockJS(url + '/chat');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log("connected to: " + frame);
@@ -19,6 +19,13 @@ function connectToChat(userName) {
             }
         });
     });
+}
+
+function disconnect() {
+    if (stompClient !== null) {
+        stompClient.disconnect();
+    }
+    console.log("Disconnected");
 }
 
 function sendMsg(from, text) {

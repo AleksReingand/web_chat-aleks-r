@@ -14,8 +14,8 @@ public class MessageServiceImpl implements MessageService
   MessageJpa messageJpa;
 
   @Override
-  public List<MessageEntity> getMessageList()
+  public List<MessageEntity> getMessages()
   {
-    return messageJpa.findAllByNickName();
+    return messageJpa.findAll();
   }
 }

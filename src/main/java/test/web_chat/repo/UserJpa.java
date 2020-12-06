@@ -8,5 +8,5 @@ import java.util.List;
 public interface UserJpa extends JpaRepository<UserEntity, Integer>
 {
   List<UserEntity> findAllByEnabledIsTrue();
-  UserEntity findByNickName();
+  UserEntity findByNickName(String name);
 }

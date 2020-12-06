@@ -1,6 +1,7 @@
 package test.web_chat.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -31,18 +32,28 @@ public class Controller
   @MessageMapping("/chat/{to}")
   public void sendMassage(@DestinationVariable String to, MessageEntity message)
   {
-    System.out.println("handling send message: " + message + " to " + to);
-    boolean isExists = userService.getUser() != null;
+    System.out.println("handling send message: " + message.getContent() + " to " + to);
+    boolean isExists = userService.getUser(to) != null;
     if(isExists)
     {
-      simpMessagingTemplate.convertAndSend("/topic/messages/" + to, message);
+      simpMessagingTemplate.convertAndSend("/topic/messages/" + to, message.getContent());
     }
   };
 
   @GetMapping("/registration/{userName}")
-  public List<MessageEntity> register(@PathVariable String userName)
+  public ResponseEntity<Void> register(@PathVariable String userName)
   {
-    return messageService.getMessageList();
+    try
+    {
+      UserEntity newUser = UserEntity.builder().nickName(userName).enabled(true).build();
+      userService.saveUser(newUser);
+    }
+    catch(Exception e)
+    {
+      ResponseEntity.badRequest().build();
+    }
+
+    return ResponseEntity.ok().build();
   }
 
   @GetMapping("/fetchAllUsers")

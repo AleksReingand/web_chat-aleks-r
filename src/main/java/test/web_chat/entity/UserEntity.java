@@ -1,12 +1,23 @@
 package test.web_chat.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.Collection;
 
+@Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users", schema = "public", catalog = "ddm8g1tsouo1g4")
 public class UserEntity
 {
@@ -16,6 +27,7 @@ public class UserEntity
   private Collection<MessageEntity> messagesByUserId;
 
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "user_id")
   public int getUserId()
   {

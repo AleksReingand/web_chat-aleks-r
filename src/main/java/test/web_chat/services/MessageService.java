@@ -6,6 +6,5 @@ import java.util.List;
 
 public interface MessageService
 {
-  List<MessageEntity> getMessageList();
-
+  List<MessageEntity> getMessages();
 }
